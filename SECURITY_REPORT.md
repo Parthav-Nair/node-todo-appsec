@@ -1,4 +1,4 @@
-# 🔐 Security Audit Summary – node-todo-appsec
+# 🔐 Security Audit Summary
 
 ## Tools Used
 - SonarCloud (SAST)
@@ -13,14 +13,14 @@
 | SCA        | Outdated `express` and `mongoose`     | Medium   | A9        |
 | Manual     | No error handling on DB writes        | Medium   | A5        |
 
-## Remediations
+## modifications
 - All secrets moved to `.env`
 - Input validation added using `express-validator`
 - Outdated dependencies updated using `npm audit fix`
 - Try-catch blocks added for database operations
 
-## SonarCloud Snapshot (Before & After)
-> Screenshot 1: 3 Security Issues Detected  
-> Screenshot 2: 0 Security Issues After Fixes
+## SonarCloud Evaluation
+> Evaluation 1: 3 Security Issues Detected  
+> Evaluation 2: 0 Security Issues After Fixes
 
 ## Status: ✅ Completed
