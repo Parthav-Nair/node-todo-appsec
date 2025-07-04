@@ -8,6 +8,7 @@
     "body-parser": "^1.18.2",
     "dotenv": "^17.0.1",
     "express": "^4.10.8",
+    "express-validator": "^7.2.1",
     "method-override": "^2.3.10",
     "mongodb": "4.0",
     "mongoose": "4.10.8",

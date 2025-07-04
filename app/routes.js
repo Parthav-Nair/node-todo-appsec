@@ -22,21 +22,32 @@ module.exports = function (app) {
     });
 
     // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
+        const { body, validationResult } = require('express-validator');
 
-        // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            done: false
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
+    app.post('/addtodo',
+    // Validation middleware
+    body('text')
+        .trim()
+        .notEmpty().withMessage('Todo text cannot be empty')
+        .isLength({ max: 100 }).withMessage('Too long'),
 
-            // get and return all the todos after you create another
-            getTodos(res);
-        });
+    // Route logic
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
 
-    });
+        // Safe to insert now
+        try {
+        await Todo.create({ text: req.body.text });
+        res.status(201).send('Todo added securely');
+        } catch (err) {
+        res.status(500).send('Database error');
+        }
+    }
+    );
+
 
     // delete a todo
     app.delete('/api/todos/:todo_id', function (req, res) {
